@@ -43,7 +43,7 @@ There are many ways to install Isaac Sim, we're going to use Nvidia's Isaac Lab 
     ```bash
     runapp
     ```
-    - Enter `exit` to close the container, afterwards shut it down with:
+    - Enter `exit` to leave the container, afterwards shut it down with:
     ```bash
     ./docker/container.py stop ros2
     ```
@@ -51,6 +51,7 @@ There are many ways to install Isaac Sim, we're going to use Nvidia's Isaac Lab 
 2. Import the SO101 arm into Isaac Sim.
     - In Isaac Sim, go to File > Import and choose  
     `/techin517/so101_ws/src/so101_ros2/so101_description/urdf/so101_newcalib.urdf`
+    - TODO: joint settings ...
 
 3. Connect Isaac Sim to ROS
     - Go to Tools > Robotics > ROS 2 OmniGraphs > Joint States
@@ -70,7 +71,6 @@ There are many ways to install Isaac Sim, we're going to use Nvidia's Isaac Lab 
     ```bash
     ros2 run topic_tools relay /leader/joint_states /isaac_joint_command
     ```
-
 
 
 ## Deliverables

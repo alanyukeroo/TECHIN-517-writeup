@@ -15,17 +15,23 @@ If you do not, please use the desktops in the robotics lab area.
 
 ## TODO
 
+**As a project team**
+
 1. Collect a robot arm kit from the instructors.  
 Fill out the included packing slip to confirm you recieved all necessary parts.  
 
-2. Clone this repo with the following command:
+2. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to assemble your arm while you discuss your project.  
+
+**Individually**
+
+1. Clone this repo with the following command:
     ```bash
     git clone --recursive https://github.com/GIXLabs/TECHIN517.git
     ```
     The `--rescursive` option also clones the included dependencies.  
     The scripts in this repo will not work properly without them.  
 
-3. Configure your Docker install to work with Nvidia GPUs:  
+2. Configure your Docker install to work with Nvidia GPUs:  
 Run the following command to make sure your GPU drivers are installed:  
     ```bash
     nvidia-smi
@@ -34,15 +40,27 @@ Run the following command to make sure your GPU drivers are installed:
     Next you will need to install [Nvidia's container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
     Follow the instructions for Debian / Ubuntu.  
 
-4. Fill out the partial [Dockerfile](/docker/INCOMPLETE_Dockerfile).  
+3. Fill out the partial [Dockerfile](/docker/INCOMPLETE_Dockerfile).  
 Follow the `TODO` comments in the file.  
 You should not need to modify the `devcontainer.json` or `setup.sh` files.  
 Your `Dockerfile` should work with these other configurations to create a working dev environment.  
 We will use a separate container to use Isaac Sim later.  
 
-4. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to assemble, configure, and calibrate the arms.  
+4. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to configure and calibrate the arms.  
 Use the name on the side of the robot for the calibration name.  
 If you configured your container properly, all lerobot command should work properly.  
+
+5. Read through [LeRobot's guide](https://huggingface.co/docs/lerobot/il_robots) on imitation learning.  
+Follow [the guide to teleoperate using a camera](https://huggingface.co/docs/lerobot/cameras#setup-cameras).  
+Use both the wrist-mounted camera and the overhead depth camera.  
+Disable uploading your data to the cloud by running with this argument:  
+`--dataset.push_to_hub=False`  
+
+6. Train the policy after 25 examples.  
+Record a video of running inference after 25 examples
+
+7. Train the policy again after 50 total examples.  
+Record a video of running inference after 50 examples
 
 
 ## Deliverables 
@@ -61,6 +79,10 @@ Please be patient with the other team(s) and assemble your arm as soon as possib
 Any time you need to use a new arm, you should be able to download the calibration.  
 If you need to update the calibration at any point, make sure to update the file in the drive as well. 
 
+6. Submit your video of running inference after training with 25 examples.
+
+7. Submit your video of running inference after training with 50 examples.
+
 
 ## FAQ
 
@@ -70,6 +92,9 @@ If you need to update the calibration at any point, make sure to update the file
 **Q:** My motors aren't working, why?  
 **A:** You might need to update the motor's firmware.  
 Refer to [the documentation](https://huggingface.co/docs/lerobot/feetech) for a guide on how to do so.  
+
+**Q:** When I try to calibrate an arm it errors out and says it's out of bounds, what do I do?  
+**A:** Unplug both power and data from the 
 
 **Q:** The motor position values jump when trying to calibrate the arm, then the arm jumps when teleoping the robot, why?  
 **A:** Try calibrating the robot again, only move one joint at a time slowly.
