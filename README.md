@@ -8,6 +8,20 @@ Get started by cloning the repo:
 git clone --recursive https://github.com/GIXLabs/TECHIN517.git
 ```
 
+## Table of Contents
+
+| Week | Directory | Description |
+| - | - | - |
+| 1 | lab1 | | 
+| 2 | lab2 | | 
+| 3 | lab3 | | 
+| 4 | lab4 | | 
+| 5 | lab5 | | 
+| 6 | lab6 | | 
+| 7 | lab7 | | 
+| 8 | lab8 | | 
+| 1-11 | project | |
+
 
 ## Lab Instructions
 

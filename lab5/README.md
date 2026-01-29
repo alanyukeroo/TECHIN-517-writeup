@@ -1,7 +1,7 @@
 # Lab 5: Isaac Sim
 
 This week we're going to begin using Nvidia's Isaac Sim.  
-Isaac Sim is another simulation platform that includes features for [simulating robots](), [computer-vision synthetic data generation](), [maintaining digital-twins](), [reinforcement learning](), and [more]().  
+Isaac Sim is another simulation platform that includes features for [simulating robots, computer-vision synthetic data generation, maintaining digital-twins, reinforcement learning, more](https://docs.isaacsim.omniverse.nvidia.com/6.0.0/index.html).  
 
 
 ## Learning Objectives
@@ -12,9 +12,12 @@ Isaac Sim is another simulation platform that includes features for [simulating 
 
 ## TODO
 
-1. Install Isaac Sim and Isaac Lab.  
+1. Update the `.urdf` description of the so101 in ros to reflect the current design.  
+`# TODO`
+
+2. Install Isaac Sim and Isaac Lab.  
 There are many ways to install Isaac Sim, we're going to use Nvidia's Isaac Lab Docker container.  
-    - Clone Nvidia's Isaac Lab repo **into your home directory**:
+    - Clone Nvidia's Isaac Lab repo **into your home directory on the host computer**:
     ```bash
     git clone https://github.com/isaac-sim/IsaacLab.git
     ```
@@ -48,12 +51,36 @@ There are many ways to install Isaac Sim, we're going to use Nvidia's Isaac Lab 
     ./docker/container.py stop ros2
     ```
 
-2. Import the SO101 arm into Isaac Sim.
+3. Import the SO101 arm into Isaac Sim.
     - In Isaac Sim, go to File > Import and choose  
     `/techin517/so101_ws/src/so101_ros2/so101_description/urdf/so101_newcalib.urdf`
-    - TODO: joint settings ...
+    - Enter the following settings to approximate the physics of the arm in Isaac Sim:
+        - Model: Referenced Model
+        - USD Output: `/techin517/`
+        - Links: Static Base
+        - Default Density: 0.0
+        - Joints & Drivers: Check "Ignore Mimic"
+        - Joint Configuration: Natural Frequency
+        - Drive Type: Force
+        - Joint settings
+            | Name | Target | Frequency | Damping | 
+            | - | - | - | - |
+            | elbow_flex | position | 10.0 | 0.7 |
+            | gripper | position | 10.0 | 0.7 |
+            | shoulder_lift | position | 10.0 | 0.7 |
+            | shoulder_pan | position | 10.0 | 0.7 |
+            | wrist_flex | position | 10.0 | 0.7 |
+            | wrist_roll | position | 10.0 | 0.7 |
 
-3. Connect Isaac Sim to ROS
+            Note: these values might change as you enter other values, make sure they're all correct before continuing
+        - Colliders: Do not check "Collision From Visuals"
+        - Collider Type: Convex Hull
+        - Check "Allow Self-Collision"
+        - Do not check: "Replace Cyllinders with Capsules"
+
+        All credit to [Lychee AI](https://lycheeai-hub.com/project-so-arm101-x-isaac-sim-x-isaac-lab-tutorial-series/so-arm-import-urdf-to-isaac-sim) for providing these values.
+
+4. Connect Isaac Sim to ROS
     - Go to Tools > Robotics > ROS 2 OmniGraphs > Joint States
     - Articulation Root > World (defaultPrim) > so101_new_calib > base_link
     - Check the box for Publisher
@@ -61,7 +88,7 @@ There are many ways to install Isaac Sim, we're going to use Nvidia's Isaac Lab 
     - Check the box for Subscriber
     - Change the subscriber topic to /isaac_joint_command
 
-4. Teleoperate the arm from ROS to Isaac Sim.
+5. Teleoperate the arm from ROS to Isaac Sim.
     - Press play in Isaac Sim
     - Start teleoping the arm using ROS:
     ```bash
@@ -82,7 +109,7 @@ Include your real-life setup with the follower arm and a view of the simulation 
 ## FAQ
 
 **Q:** When I run `runapp` there's a lot of error messages about not having a GPU even though I have Nvidia container toolkit, how do I fix it?  
-Try running `./docker/container.py stop ros2` then restart the container.  
+**A:** Try running `./docker/container.py stop ros2` then restart the container.  
 
 
 ## Resources

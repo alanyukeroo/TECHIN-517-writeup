@@ -1,4 +1,4 @@
-# Lab 1: Assemble SO101 Robot Arms
+# Lab 1: LeRobot Ex Machina
 
 In this quarter, we will survey AI in robotics with robot arms.  
 We will use the [SO101 arm](https://github.com/TheRobotStudio/SO-ARM100) to explore imitation learning, computer vision, and reinforcement learning.  
