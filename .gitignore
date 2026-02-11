@@ -11,3 +11,10 @@
 /isaac_so101
 /answers
 /archive
+/huggingface/*
+!/huggingface/README.md
+CLAUDE.md
+HUMBLE*
+JAZZY*
+OLD*
+working*
