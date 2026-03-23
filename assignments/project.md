@@ -39,8 +39,12 @@
 | 7 | | **In-class presentation 2** |
 | 8 |
 | 9 |
-| 10 |
+| 10 | The project should be done by now<br>Leave time to measure results, document, and practice your presentation | 
 | 11 | | **Final presentation** |
+
+**Quantitative Results**
+
+`# TODO: ask Zubin`
 
 **Presentations**
 
@@ -61,17 +65,22 @@
     - Present evidence of what each team member has done so far
     - Explain what each team member will do next
     - Describe your goals for the next 2 presentation
+    - Stick to time limit
 - In-class presentation 2:
     - Demonstrate progress based on feedback from the first presentation
     - Show a demo video of progress so far
     - Present evidence of what each team member has done so far
     - Explain what each team member will do next
     - Describe your goal for the final presentation
+    - Stick to time limit
 - Final presentation:
     - Perform a live demo
-    - Present your results
+    - Explain your system architecture
     - Explain how you handled challenges and improved your system
+    - Present your quantitative results
     - Address the evaluation considerations below
+    - Contributions from all team members
+    - Stick to time limit
 
 
 ## Evaluation
@@ -102,11 +111,13 @@ Your project will be evaluated based on the following priorities:
     - A .devcontainer with a Dockerfile and devcontainer.json purpose made for your project and your dependencies  
     Theoretically, anyone who downloads your repo should be able to use your robot using your container environment
     - All of your customized code required to use the robot
+    - Quantitative results data
     - Contributions from all team members
     - A LICENSE file that complies with all dependencies' licenses
     - A README.md file with:
         - A short explanation of your project
         - A link to your video demo
+        - Visualizations about your quantitative results
         - Setup instructions, including installation instructions of any dependencies, and a link to download your pre-trained model(s)
         - Usage instructions
 - Return all materials

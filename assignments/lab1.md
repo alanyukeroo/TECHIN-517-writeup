@@ -2,16 +2,16 @@
 
 In this quarter, we will survey AI in robotics with robot arms.  
 We will use the [SO101 arm](https://github.com/TheRobotStudio/SO-ARM100) to explore imitation learning, classical motion planning, computer vision, and reinforcement learning.  
-The first step is to assemble the arms and configure the working environment.  
-Many of the labs for this course assume you have a GPU that works with Nvidia technologies.  
+The first step is to assemble the arms, configure the working environment, and train your first VLA!  
 
+Many of the labs for this course assume you have a GPU that works with Nvidia technologies.  
 If you do not, please use the desktops in the robotics lab area.  
 Not all of the systems we will use this quarter require Linux and ROS.  
 You are encouraged to keep your training data stored in the cloud or on external storage in order to train lerobot models on your own devices.  
-This gives you the assurance that no one will interupt the training on a public desktop, and opens up school resources for other students to use.  
-To install Lerobot on your own device, follow the [conda instructions given on the Huggingface website](https://huggingface.co/docs/lerobot/en/installation).
+This gives you the assurance that no one will interrupt the training on a public desktop, and opens up school resources for other students to use.  
+To install lerobot on your own device, follow the [conda instructions given on the Huggingface website](https://huggingface.co/docs/lerobot/en/installation).
 
-| | Lerobot | ROS | Isaac Sim |
+| OS | Lerobot | ROS | Isaac Sim |
 | - | - | - | - |
 | Linux | yes | yes | yes |
 | Mac | yes | no | no |
@@ -35,10 +35,10 @@ To install Lerobot on your own device, follow the [conda instructions given on t
 - [Lerobot](https://github.com/huggingface/lerobot)  
     Huggingface has done incredible work developing a system for using many types of Vision-Language-Action (VLA) models on many types of robots.  
     Without this, we would need the entire quarter to replicate these results.  
-    Instead we get to learn how to use VLAs to quickly develop and deploy intelligent robot systems.  
+    With lerobot, we can use VLAs to quickly develop and deploy intelligent robot systems.  
 
 - [SO101 Robot Arm](https://github.com/TheRobotStudio/SO-ARM100)  
-    The Robot Studio and a large community of open-source developers have already integrated this afforable arm into all the cutting-edge systems we will learn about this quarter, democratizing robot education.
+    The Robot Studio and a large community of open-source developers have already integrated this affordable arm into all the cutting-edge systems we will learn about this quarter, democratizing robot education.
 
 
 ## TODO
@@ -67,6 +67,7 @@ Run the following command to make sure your GPU drivers are installed:
     This should print information about your GPU, otherwise you will need to install the right drivers.  
     Next you will need to install [Nvidia's container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
     Follow the instructions for Debian / Ubuntu.  
+    Make sure that you can run the sample workload on the second page.
 
 3. Fill out the partial [Dockerfile](/docker/INCOMPLETE_Dockerfile):  
     Follow the `TODO` comments in the file.  
@@ -76,7 +77,9 @@ Run the following command to make sure your GPU drivers are installed:
 
 4. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to configure and calibrate the arms:  
     Use the name on the side of the robot for the calibration name.  
-    If you configured your container properly, all lerobot command should work properly.  
+    Calibrate the arm at its "0" position.  
+    Especially note how the gripper is orthogonal to the motor:  
+    ![calibration_pose](/assets/so101_calibration_L-pose.png)
 
 5. Read through [LeRobot's tutorial](https://huggingface.co/docs/lerobot/il_robots) on imitation learning:  
     Follow [the guide to teleoperate using a camera](https://huggingface.co/docs/lerobot/cameras#setup-cameras).  
@@ -84,7 +87,7 @@ Run the following command to make sure your GPU drivers are installed:
 
 6. Train an ACT policy using 50 examples and run inference:  
     We highly recommend recording a couple episodes before going for all 50 to ensure everything is working properly.  
-    Highly recommend recording with the following argument to avoid additional setup:
+    We highly recommend recording with the following argument to avoid additional setup:
     ```bash
     --dataset.push_to_hub=False
     ```
@@ -101,12 +104,12 @@ Run the following command to make sure your GPU drivers are installed:
     Lerobot has [many tools](https://huggingface.co/docs/lerobot/en/using_dataset_tools) for editing datasets if you need to remove an episode, or if you want to record in batches and merge them later.  
 
 7. Save your training dataset and trained policy for later:  
-    We highly recommend using a large external hard drive or your school Google drive for all of the data this quarter.
+    We highly recommend using a large external hard drive or your school Google drive for all of the data and models this quarter.
 
 
 ## Deliverables 
 
-1. Return the packing slip that came with the kit with everyone's name to confirm you recieved all the necessary parts.  
+1. Return the packing slip that came with the kit with everyone's name to confirm you received all the necessary parts.  
 
 2. Submit your Dockerfile.
 
@@ -115,6 +118,14 @@ Any time you need to use a new arm, you should be able to download the calibrati
 If you need to update the calibration at any point, make sure to update the file in the drive as well. 
 
 4. Submit your video of running inference after training with 50 examples.
+
+5. Write a short paragraph discussing the trade-offs of using VLAs.  
+    **Do not use AI**  
+    What are they good for?  
+    What are they bad at?  
+    How might you mitigate shortcomings?  
+    What was your experience like training a policy?  
+    How do you imagine these policies scaling to work in the real world?
 
 
 ## FAQ
@@ -127,29 +138,20 @@ If you need to update the calibration at any point, make sure to update the file
 Refer to [the documentation](https://huggingface.co/docs/lerobot/feetech) for a guide on how to do so.  
 
 **Q:** When I try to calibrate an arm it errors out and says it's out of bounds, what do I do?  
-**A:** Unplug both power and data from the 
+**A:** Unplug both power and data from the motor driver board. Plug them back in and try again.
 
 **Q:** The motor position values jump when trying to calibrate the arm, then the arm jumps when teleoping the robot, why?  
 **A:** Try calibrating the robot again, only move one joint at a time slowly.
-
-**Q:** The calibration script says my motor's values are out of range, what do I do?  
-**A:** You can use [this open-source software](https://github.com/CarolinePascal/FT_SCServo_Debug_Qt/tree/fix/port-search-timer) to check the firmware version of the motors.  
-Make sure that all motors have the same version.  
-If a motor has a different version, you will need a Windows computer to change the firmware.  
-If all motors have the right firmware, try disconnecting and reconnecting the power and trying again.  
-This might take many tries.  
 
 **Q:** When I try to record an example it says the camera times-out even though the camera works during teleoperation?  
 **A:** Check out [this Github issue](https://github.com/huggingface/lerobot/issues/1675).  
 You should be able to record examples at 30fps with the given cameras.  
 
 **Q:** The lerobot-record script hangs at the end, why won't it finish?  
-**A:** Your container might not be able to launch the Rerun GUI, record with ```--display_data=false``` to avoid startup/shutdown issues.  
+**A:** Your container might not be able to launch the Rerun GUI, record with `--display_data=false` to avoid startup/shutdown issues.  
 
 
 ## Resources
-
-[Seeed Studios Wiki Guide for the SO101](https://github.com/Seeed-Studio/wiki-documents/blob/docusaurus-version/docs/Robotics/Robot_Kits/Lerobot/Lerobot_SO100Arm.md)
 
 [Dockefile Keywords List](https://docs.docker.com/reference/dockerfile/)  
 As you modify the given Dockerfile, checkout this list to see what the keywords do.  
@@ -159,4 +161,11 @@ Environment management is extremely important for robotics development!
 We would run into infinitely more issues if all students installed these workspaces onto their own host machines.  
 This lab requires you to modify a Dockerfile because understanding Docker genuinely makes development so much easier.  
 
+[Seeed Studios Wiki Guide for the SO101](https://github.com/Seeed-Studio/wiki-documents/blob/docusaurus-version/docs/Robotics/Robot_Kits/Lerobot/Lerobot_SO100Arm.md)
+
 [Best practices for recording imitation learning demonstrations from NVIDIA](https://www.youtube.com/watch?v=f7Wo9AFUR9U)
+
+[Full tutorial on robot learning by Huggingface](https://huggingface.co/spaces/lerobot/robot-learning-tutorial)  
+Full write-up covering classical robots, reinforcement learning, imitation learning, and general robot policies.  
+This paper is a great introduction for quickly learning about this field of research.  
+The citations in this paper would be a good start for your literature review this quarter.  

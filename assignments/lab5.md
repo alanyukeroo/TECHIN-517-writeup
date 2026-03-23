@@ -1,119 +1,60 @@
-# Lab 5: Isaac Sim
+# Lab 5: Hand-eye Coordination
 
-This week we're going to begin using Nvidia's Isaac Sim.  
-Isaac Sim is another simulation platform that includes features for [simulating robots, computer-vision synthetic data generation, maintaining digital-twins, reinforcement learning, more](https://docs.isaacsim.omniverse.nvidia.com/6.0.0/index.html).  
+Now that we know how to accurately move the robot arm, we need methods for understanding the robot's environment to decide where to move to perform real tasks.  
+There are large bodies of work for understanding the world with computer vision.  
+In this lab, we will learn how to calibrate and coordinate computer vision with robot arms.
 
 
 ## Learning Objectives
 
-- Import a URDF into Isaac Sim.
-- Connect information from ROS to Isaac Sim. 
+- Calibrate arms and cameras to work together.
+- Track the position of an aruco cube using computer vision.
+- Control robot arms using information from cameras.
+- Attempt to pick arbitrary objects using poses from YOLO 3D.
+
+
+## Given
+
+- [ros2_handeye_calibration](https://github.com/giuschio/ros2_handeye_calibration)
+
+- [yolo_ros](https://github.com/mgonzs13/yolo_ros)  
+    We will use the same ros2 yolo package as last quarter to quickly estimate positions of various objects 
 
 
 ## TODO
 
-1. Update the `.urdf` description of the so101 in ros to reflect the current design.  
-`# TODO`
+1. Use the `ros2_handeye_calibration` package to calibrate the arm with the Realsense D435i depth camera.  
 
-2. Install Isaac Sim and Isaac Lab.  
-There are many ways to install Isaac Sim, we're going to use Nvidia's Isaac Lab Docker container.  
-    - Clone Nvidia's Isaac Lab repo **into your home directory on the host computer**:
-    ```bash
-    git clone https://github.com/isaac-sim/IsaacLab.git
-    ```
-    - Open the repo in VS Code
-    - In the file `IsaacLab/docker/.env.base`, change the ISAACSIM_VERSION to 5.0.0
-    - Add your class repo as a volume in `IsaacLab/docker/docker-compose.yaml`
-    ```yaml
-    - existing volumes...
-    - type: bind
-        source: .isaac-lab-docker-history
-        target: ${DOCKER_USER_HOME}/.bash_history
-    # TODO: add class repo as a shared volume
-    - type: bind
-        source: <relative/path/to/your/class/repo>
-        target: /techin517
-    ```
-    - Build the container with ROS2 support
-    ```bash
-    ./docker/container.py start ros2
-    ```
-    - Enter the container
-    ```bash
-    ./docker/container.py enter ros2
-    ```
-    - Start Isaac Sim
-    ```bash
-    runapp
-    ```
-    - Enter `exit` to leave the container, afterwards shut it down with:
-    ```bash
-    ./docker/container.py stop ros2
-    ```
+2. Complete the `aruco_cube_position` node in `soa_functions`
 
-3. Import the SO101 arm into Isaac Sim.
-    - In Isaac Sim, go to File > Import and choose  
-    `/techin517/so101_ws/src/so101_ros2/so101_description/urdf/so101_newcalib.urdf`
-    - Enter the following settings to approximate the physics of the arm in Isaac Sim:
-        - Model: Referenced Model
-        - USD Output: `/techin517/`
-        - Links: Static Base
-        - Default Density: 0.0
-        - Joints & Drivers: Check "Ignore Mimic"
-        - Joint Configuration: Natural Frequency
-        - Drive Type: Force
-        - Joint settings
-            | Name | Target | Frequency | Damping | 
-            | - | - | - | - |
-            | elbow_flex | position | 10.0 | 0.7 |
-            | gripper | position | 10.0 | 0.7 |
-            | shoulder_lift | position | 10.0 | 0.7 |
-            | shoulder_pan | position | 10.0 | 0.7 |
-            | wrist_flex | position | 10.0 | 0.7 |
-            | wrist_roll | position | 10.0 | 0.7 |
+3. Complete the `pick_by_position` app in `soa_apps`
 
-            Note: these values might change as you enter other values, make sure they're all correct before continuing
-        - Colliders: Do not check "Collision From Visuals"
-        - Collider Type: Convex Hull
-        - Check "Allow Self-Collision"
-        - Do not check: "Replace Cyllinders with Capsules"
+4. Use the `pick_by_position` app to pick the cube, using the position `aruco_cube_position`.  
+    Record a video demo.  
 
-        All credit to [Lychee AI](https://lycheeai-hub.com/project-so-arm101-x-isaac-sim-x-isaac-lab-tutorial-series/so-arm-import-urdf-to-isaac-sim) for providing these values.
-
-4. Connect Isaac Sim to ROS
-    - Go to Tools > Robotics > ROS 2 OmniGraphs > Joint States
-    - Articulation Root > World (defaultPrim) > so101_new_calib > base_link
-    - Check the box for Publisher
-    - Change publisher topic to /isaac_joint_states
-    - Check the box for Subscriber
-    - Change the subscriber topic to /isaac_joint_command
-
-5. Teleoperate the arm from ROS to Isaac Sim.
-    - Press play in Isaac Sim
-    - Start teleoping the arm using ROS:
-    ```bash
-    ros2 launch so101_bringup so101_teleoperate.launch.py mode:=real expert:=human display:=true
-    ```
-    - Run the following in ROS to connect the topics:
-    ```bash
-    ros2 run topic_tools relay /leader/joint_states /isaac_joint_command
-    ```
+5. Use the `pick_by_position` app to pick a fake piece of fruit, using the position from the yolo3D topic.  
+    Record a video demo.  
 
 
 ## Deliverables
 
-1. Submit a video of yourself teleoperating the arm.  
-Include your real-life setup with the follower arm and a view of the simulation screen.  
+1. Link to your video demo picking the aruco cube.  
+
+2. Link to your video demo picking the fruit.
+
+3. Write a paragraph discussing classic motion planning versus learning-based control.  
+    **Do not use AI.**  
+    How do the different systems handle manipulating arbitrary objects?  
+    What are the data requirements for manipulating with classic versus learned control?  
+    How do classic and learned control compare for non-manipulation end-effectors (e.g. milling, drilling, sensing, spraying, sanding, etc.)?  
 
 
 ## FAQ
 
-**Q:** When I run `runapp` there's a lot of error messages about not having a GPU even though I have Nvidia container toolkit, how do I fix it?  
-**A:** Try running `./docker/container.py stop ros2` then restart the container.  
-
 
 ## Resources
 
-[Official Isaac Sim 5.0.0 documentation on importing URDFs](https://docs.isaacsim.omniverse.nvidia.com/5.0.0/importer_exporter/ext_isaacsim_asset_importer_urdf.html)  
-
-[Lychee AI tutorial on importing URDFs into Isaac Sim](https://www.youtube.com/watch?v=KCHmYvYF_6c)
+- [Nvidia's Foundation Pose](https://nvlabs.github.io/FoundationPose/)  
+    This system uses a 3D representation of objects to infer the pose of objects.  
+    As demoed, these poses can be used to accurately manipulate objects.  
+    There are many systems for 6-dof pose estimation that compete on the [BOP leaderboard](https://bop.felk.cvut.cz/leaderboards/pose-estimation-unseen-bop23/core-datasets/)  
