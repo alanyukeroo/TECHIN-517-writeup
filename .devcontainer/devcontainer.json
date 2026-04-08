@@ -2,6 +2,7 @@
   "name": "techin517",
   "build": {
     "dockerfile": "../docker/Dockerfile",
+    "context": "..",
     "target": "dev"
   },
   "runArgs": [
