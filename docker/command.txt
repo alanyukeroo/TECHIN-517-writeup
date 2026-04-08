@@ -1,0 +1,66 @@
+I have a ROS2 Humble devcontainer already running. 
+Please install the following packages and set everything up 
+inside this existing container:
+
+INSTALL IN ORDER:
+
+1. ROS2 dependencies:
+   sudo apt-get update
+   sudo apt-get install -y \
+     ros-humble-moveit \
+     ros-humble-ros2-control \
+     ros-humble-ros2-controllers \
+     ros-humble-gazebo-ros-pkgs \
+     ros-humble-gazebo-ros2-control \
+     ros-humble-rmw-cyclonedds-cpp
+
+2. Clone lerobot_ws for SO-101 simulation:
+   git clone https://github.com/Pavankv92/lerobot_ws ~/lerobot_ws
+
+3. Install LeRobot:
+   pip install "lerobot[feetech]"
+
+4. Clone and install lerobot-ros:
+   git clone https://github.com/ycheng517/lerobot-ros ~/lerobot-ros
+   cd ~/lerobot-ros
+   pip install -e lerobot_robot_ros lerobot_teleoperator_devices
+
+5. Build ROS workspace:
+   cd ~/lerobot_ws
+   rosdep install --from-paths src --ignore-src -r -y
+   colcon build --symlink-install
+
+6. Source everything in .bashrc:
+   echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+   echo "source ~/lerobot_ws/install/setup.bash" >> ~/.bashrc
+   source ~/.bashrc
+
+VERIFY INSTALLATION by running:
+- ros2 pkg list | grep moveit
+- ros2 pkg list | grep gazebo
+- lerobot-teleoperate --help
+- ros2 launch lerobot_description so101_gazebo.launch.py --show-args
+
+If any package fails to install, find the correct 
+ROS2 Humble compatible alternative and use that instead.
+Report any errors clearly.
+
+
+Terminal 1 — Launch Gazebo with SO-101:
+bashsource ~/lerobot_ws/install/setup.bash
+ros2 launch lerobot_description so101_gazebo.launch.py
+Wait until Gazebo fully loads before moving to Terminal 2.
+
+Terminal 2 — Load controllers + MoveIt:
+bashsource ~/lerobot_ws/install/setup.bash
+ros2 launch lerobot_controller so101_controller.launch.py
+Wait a few seconds, then in the same terminal or a new one:
+bashros2 launch lerobot_moveit so101_moveit.launch.py
+
+Terminal 3 — Start teleoperation + recording:
+bashsource ~/lerobot_ws/install/setup.bash
+lerobot-teleoperate \
+  --robot.type=so101_ros \
+  --robot.id=my_awesome_follower_arm \
+  --teleop.type=keyboard_joint \
+  --display_data=true
