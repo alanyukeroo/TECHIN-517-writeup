@@ -117,3 +117,18 @@ lerobot-record \
     --dataset.episode_time_s=120 \
     --dataset.reset_time_s=120 \
     --dataset.root=/home/ubuntu/techin517/outputs/record/${RECORD_NAME}
+
+    sudo uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128 --system --reinstall
+
+
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True lerobot-train   --dataset.repo_id=alannur/so101-30ep-2cam-v3   --dataset.root=/home/ubuntu/.cache/huggingface/lerobot/alannur/so101-30ep-2cam-v3   --policy.type=act   --policy.device=cuda   --policy.push_to_hub=false   --output_dir=outputs/train/act_so101_2cam_v3   --job_name=act_so101_2cam_v3   --wandb.mode=disabled 
+
+lerobot-record \
+  --robot.type=so101_follower \
+  --robot.port=/dev/tty.YOUR_PORT \
+  --robot.cameras='{"wrist": {"type": "opencv", "index_or_path": 0}, "overhead": {"type": "opencv", "index_or_path": 1}}' \
+  --control.type=record \
+  --control.policy.path=/home/ubuntu/techin517/outputs/train/act_so101_2cam_v3/checkpoints/last/pretrained_model \
+  --control.repo_id=${HF_USER}/eval_act_so101 \
+  --dataset.push_to_hub=False \
+  --display_data=False
