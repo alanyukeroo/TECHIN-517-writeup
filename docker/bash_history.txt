@@ -12,3 +12,179 @@ lerobot-teleoperate --help
 ros2 launch lerobot_description so101_gazebo.launch.py --show-args
 source ~/lerobot_ws/install/setup.bash
 ros2 launch lerobot_description so101_gazebo.launch.py
+clear
+ls
+clear
+ls
+ls /dev/ttyACM*
+sudo chmod 666 /dev/ttyACM0 
+lerobot-calibrate     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm
+lerobot-setup-motors     --robot.type=so101_follower     --robot.port=/dev/ttyACM0
+sudo chmod 666 /dev/ttyACM0 
+lerobot-setup-motors     --robot.type=so101_follower     --robot.port=/dev/ttyACM0
+sudo chmod 666 /dev/ttyACM0 
+lerobot-calibrate     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm
+sudo chmod 666 /dev/ttyACM0 
+lerobot-calibrate     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm
+clear
+ls
+exit
+sudo chmod 666 /dev/ttyACM0 
+sudo chmod 666 /dev/ttyACM1
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm
+cp /home/ubuntu/techin517/my_calibration/my_leader.json    ~/.cache/huggingface/lerobot/calibration/teleoperators/so101_leader/my_awesome_leader_arm.json
+cp /home/ubuntu/techin517/my_calibration/my_follower.json    ~/.cache/huggingface/lerobot/calibration/robots/so101_follower/my_awesome_follower_arm.json
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm
+clear
+ls
+clear
+ls
+clear
+ls
+lerobot-calibrate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm
+sudo chmod 666 /dev/ttyACM1
+lerobot-calibrate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm
+sudo chmod 666 /dev/ttyACM1
+lerobot-calibrate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm
+lerobot-calibrate     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ \
+        front: {type: opencv, index_or_path: /dev/video6, width: 320, height: 180, fps: 30}, \
+        gripper: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30} \
+    }"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=true
+lerobot-find-cameras opencv 
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ \
+        front: {type: opencv, index_or_path: /dev/video8, width: 320, height: 180, fps: 30}, \
+        gripper: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30} \
+    }"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ \
+        front: {type: opencv, index_or_path: /dev/video8, width: 320, height: 180, fps: 30}, \
+        gripper: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30} \
+    }"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ \
+        front: {type: opencv, index_or_path: /dev/video8, width: 320, height: 180, fps: 30}, \
+        gripper: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30} \
+    }"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=yes
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ \
+        front: {type: opencv, index_or_path: /dev/video8, width: 320, height: 180, fps: 30}, \
+        gripper: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30} \
+    }"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=yes
+lerobot-find-cameras opencv 
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ \
+        front: {type: opencv, index_or_path: /dev/video11, width: 320, height: 180, fps: 30}, \
+        gripper: {type: opencv, index_or_path: /dev/video1, width: 640, height: 480, fps: 30} \
+    }"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=true
+export DISPLAY=:1
+export LIBGL_ALWAYS_SOFTWARE=1
+v4l2-ctl --list-devices
+pip install rerun-sdk
+rerun --connect rerun+http://127.0.0.1:9876/proxy
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ \
+        front: {type: opencv, index_or_path: /dev/video11, width: 320, height: 180, fps: 30}, \
+        gripper: {type: opencv, index_or_path: /dev/video1, width: 640, height: 480, fps: 30} \
+    }"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ \
+        front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}, \
+        gripper: {type: opencv, index_or_path: /dev/video1, width: 640, height: 480, fps: 30} \
+    }"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=true
+clear
+ls
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ front: {type: opencv, index_or_path: /dev/video1, width: 1920, height: 1080, fps: 30}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+v4l2-ctl --list-devices
+lerobot-find-cameras opencv # or realsense for Intel Realsense cameras
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ front: {type: opencv, index_or_path: /dev/video10, width: 1920, height: 1080, fps: 5}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video10, width: 640, height: 480, fps: 30}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+lerobot-find-cameras opencv # or realsense for Intel Realsense cameras
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video13, width: 640, height: 480, fps: 30}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video13, width: 1920, height: 1080, fps: 5}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+python3 -c "
+import cv2
+cap = cv2.VideoCapture('/dev/video13', cv2.CAP_V4L2)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+ret, frame = cap.read()
+if ret:
+    print('Success! Shape:', frame.shape)
+else:
+    print('Failed')
+    
+# Try different resolutions
+for w, h in [(640, 480), (1280, 720), (1920, 1080)]:
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, w)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, h)
+    actual_w = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+    actual_h = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    print(f'Requested {w}x{h} -> Got {actual_w}x{actual_h}')
+cap.release()
+"
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video13, width: 640, height: 480, fps: 30, fourcc: MJPG}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+v4l2-ctl --device=/dev/video13 --list-formats-ext
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video13, width: 640, height: 480, fps: 30, fourcc: YUYV}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+find ~/.local/lib/python3.10/site-packages/lerobot -name "camera_opencv.py"
+OPENCV_VIDEOIO_PRIORITY_V4L2=1 lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video13, width: 640, height: 480, fps: 30}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false
+huggingface-cli login
+HF_USER=$(huggingface-cli whoami | head -1)
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video13, width: 1920, height: 1080, fps: 5}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=${HF_USER}/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+HF_USER=$(hf auth whoami | awk -F': *' 'NR==1 {print $2}')
+echo $HF_USER
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video13, width: 1920, height: 1080, fps: 5}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=${HF_USER}/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+HF_USER=$(hf auth whoami | awk -F': *' 'NR==1 {print $2}' | tr -d ' ')
+echo $HF_USER
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video13, width: 1920, height: 1080, fps: 5}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=${HF_USER}/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+\
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --robot.cameras="{ gripper: {type: opencv, index_or_path: /dev/video13, width: 1920, height: 1080, fps: 5}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=alannur/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+nvidia-smi
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=alannur/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=alannur/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false     --resume=true
+rm -rf ~/.cache/huggingface/lerobot/alannur/so101_test
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=alannur/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+rm -rf ~/.cache/huggingface/lerobot/alannur/so101_test
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=alannur/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+rm -rf ~/.cache/huggingface/lerobot/alannur/so101_test
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=alannur/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+rm -rf ~/.cache/huggingface/lerobot/alannur/so101_test
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=alannur/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+rm -rf ~/.cache/huggingface/lerobot/alannur/so101_test
+lerobot-record     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm     --display_data=false     --dataset.repo_id=alannur/so101_test     --dataset.num_episodes=30     --dataset.single_task="Pick up the cube"     --dataset.push_to_hub=false
+ls ~/.cache/huggingface/lerobot/alannur/so101_test/
+du -sh ~/.cache/huggingface/lerobot/alannur/so101_test/
+cp -r ~/.cache/huggingface/lerobot/alannur/so101_test/ ~/home/data_training
+mkdir ~/home/data_training
+mkdir /home/ubuntu/data_training
+cp -r ~/.cache/huggingface/lerobot/alannur/so101_test/ /home/ubuntu/data_training
+pwd
+cp -r ~/.cache/huggingface/lerobot/alannur/so101_test/ /home/ubuntu/techin517/
+ls
+lerobot-train     --dataset.repo_id=alannur/so101_test     --policy.type=act     --output_dir=outputs/train/act_so101_test     --job_name=act_so101_test     --policy.device=cuda     --wandb.enable=false     --policy.push_to_hub=false
+lerobot-train     --dataset.repo_id=alannur/so101_test     --policy.type=act     --output_dir=outputs/train/act_so101_test     --job_name=act_so101_test     --policy.device=cuda     --wandb.enable=false     --policy.push_to_hub=false     --policy.input_features='{"observation.state": {"type": "STATE", "shape": [6]}}'
+python3 -c "
+from lerobot.datasets.lerobot_dataset import LeRobotDataset
+ds = LeRobotDataset('alannur/so101_test', local_files_only=True)
+print('Features:', ds.features)
+"
+python3 -c "
+from lerobot.datasets.lerobot_dataset import LeRobotDataset
+ds = LeRobotDataset('alannur/so101_test', root='~/.cache/huggingface/lerobot/alannur/so101_test')
+print('Features:', ds.features)
+"
+cat ~/.cache/huggingface/lerobot/alannur/so101_test/meta/info.json
+lerobot-train     --dataset.repo_id=alannur/so101_test     --policy.type=act     --output_dir=outputs/train/act_so101_test     --job_name=act_so101_test     --policy.device=cuda     --wandb.enable=false     --policy.push_to_hub=false     --policy.input_features='{"observation.state": {"type": "STATE", "shape": [6]}}'     --policy.output_features='{"action": {"type": "ACTION", "shape": [6]}}'
+cat ~/.local/lib/python3.10/site-packages/lerobot/policies/act/configuration_act.py | grep -A 20 "validate_features"
+[200~cat ~/.local/lib/python3.10/site-packages/lerobot/policies/act/configuration_act.py | grep -A 5 "env_state_feature\|image_features"
+~
+cat ~/.local/lib/python3.10/site-packages/lerobot/policies/act/configuration_act.py | grep -A 5 "env_state_feature\|image_features"
+cat ~/.local/lib/python3.10/site-packages/lerobot/policies/act/configuration_act.py | head -100
+[200~lerobot-train     --dataset.repo_id=alannur/so101_test     --policy.type=act     --output_dir=outputs/train/act_so101_test     --job_name=act_so101_test     --policy.device=cuda     --wandb.enable=false     --policy.push_to_hub=false     --policy.input_features='{"observation.environment_state": {"type": "ENV_STATE", "shape": [6]}, "observation.state": {"type": "STATE", "shape": [6]}}'     --policy.output_features='{"action": {"type": "ACTION", "shape": [6]}}'~
+lerobot-train     --dataset.repo_id=alannur/so101_test     --policy.type=act     --output_dir=outputs/train/act_so101_test     --job_name=act_so101_test     --policy.device=cuda     --wandb.enable=false     --policy.push_to_hub=false     --policy.input_features='{"observation.environment_state": {"type": "ENV_STATE", "shape": [6]}, "observation.state": {"type": "STATE", "shape": [6]}}'     --policy.output_features='{"action": {"type": "ACTION", "shape": [6]}}'
+from lerobot.configs.types import FeatureType
+print(list(FeatureType))
+python3 -c "
+from lerobot.configs.types import FeatureType
+print(list(FeatureType))
+"
+lerobot-train     --dataset.repo_id=alannur/so101_test     --policy.type=act     --output_dir=outputs/train/act_so101_test     --job_name=act_so101_test     --policy.device=cuda     --wandb.enable=false     --policy.push_to_hub=false     --policy.input_features='{"observation.environment_state": {"type": "ENV", "shape": [6]}, "observation.state": {"type": "STATE", "shape": [6]}}'     --policy.output_features='{"action": {"type": "ACTION", "shape": [6]}}'
+du -sh ~/.cache/huggingface/lerobot/alannur/so101_test/
+clear
+git add .
+git commit -m "update traingi link"
+git push origin main 

@@ -66,24 +66,54 @@ lerobot-teleoperate \
   --display_data=true
 
 
-  sudo chmod 666 /dev/ttyACM0
-  sudo chmod 666 /dev/ttyACM1
-
-  lerobot-calibrate \
+lerobot-calibrate \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1
+    --robot.port=/dev/ttyACM1 \
     --robot.id=my_awesome_follower_arm
 
-lerobot-calibrate \
-    --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM0
-    --teleop.id=my_awesome_leader_arm
+
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=my_awesome_follower_arm     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=my_awesome_leader_arm
 
 
-lerobot-teleoperate \
+
+rm -rf ~/.cache/huggingface/lerobot/alannur/so101_test
+
+lerobot-record \
     --robot.type=so101_follower \
     --robot.port=/dev/ttyACM1 \
     --robot.id=my_awesome_follower_arm \
     --teleop.type=so101_leader \
     --teleop.port=/dev/ttyACM0 \
-    --teleop.id=my_awesome_leader_arm
+    --teleop.id=my_awesome_leader_arm \
+    --display_data=false \
+    --dataset.repo_id=alannur/so101_test \
+    --dataset.num_episodes=30 \
+    --dataset.single_task="Pick up the cube" \
+    --dataset.push_to_hub=false
+
+
+
+    https://uwnetid-my.sharepoint.com/my?id=%2Fpersonal%2Falannur%5Fuw%5Fedu%2FDocuments%2FTECHIN517&viewid=5a4d078e%2D2224%2D4814%2D87df%2D088c74d2e221
+
+
+    lerobot-record \
+    --robot.type=bi_so100_follower \
+    --robot.id=bimanual \
+    --robot.calibration_dir=$FOLLOWER_CAL_DIR \
+    --robot.left_arm_port=/dev/$FOLLOWER_USB \
+    --robot.right_arm_port=/dev/$FOLLOWER2_USB \
+    --robot.cameras='{ left_wrist: {type: opencv, index_or_path: /dev/video6, width: 640, height: 480, fps: 30, fourcc: MJPG}, right_wrist: {type: opencv, index_or_path: /dev/video8, width: 640, height: 480, fps: 30, fourcc: MJPG}, overhead: {type: intelrealsense, serial_number_or_name: 243222072732, width: 640, height: 480, fps: 30}}' \
+    --teleop.type=bi_so100_leader \
+    --teleop.id=bimanual_leader \
+    --teleop.calibration_dir=$LEADER_CAL_DIR \
+    --teleop.left_arm_port=/dev/$LEADER_USB \
+    --teleop.right_arm_port=/dev/$LEADER2_USB \
+    --dataset.repo_id=${HF_USER}/${RECORD_NAME} \
+    --dataset.num_episodes=50 \
+    --dataset.single_task="Turn a single page of a children's book." \
+    --dataset.push_to_hub=False \
+    --display_data=false \
+    --play_sounds=false \
+    --dataset.episode_time_s=120 \
+    --dataset.reset_time_s=120 \
+    --dataset.root=/home/ubuntu/techin517/outputs/record/${RECORD_NAME}

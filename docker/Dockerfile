@@ -65,7 +65,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # For devcontainers, copy the local project folder to install lerobot.
 # (If mounting a volume over this later, you will still have the installed dependencies)
 COPY third_party/lerobot /tmp/lerobot
-RUN pip install -e /tmp/lerobot
+RUN pip install '/tmp/lerobot[all]' && \
+    pip uninstall torch torchvision torchaudio -y && \
+    pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 \
+        --index-url https://download.pytorch.org/whl/cu128
 
 ### dev ###
 FROM build AS dev 
