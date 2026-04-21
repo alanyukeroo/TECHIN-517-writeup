@@ -218,3 +218,11 @@ lerobot-record   --robot.type=so101_follower   --robot.port=/dev/ttyACM0   --rob
 lerobot-record   --robot.type=so101_follower   --robot.port=/dev/ttyACM0   --robot.id=gix-follower1   --robot.calibration_dir=/home/ubuntu/techin517/my_calibration   --robot.cameras='{"wrist": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}, "overhead": {"type": "intelrealsense", "serial_number_or_name": "348522076012", "width": 1280, "height": 720, "fps": 30}}'   --dataset.repo_id=alannur/eval_act_so101   --dataset.single_task="Evaluate policy"   --policy.type=act   --policy.pretrained_path=/home/ubuntu/techin517/outputs/train/act_so101_2cam_v3/checkpoints/last/pretrained_model   --dataset.push_to_hub=False   --display_data=False
 sudo chmod 666 /dev/ttyACM0
 exit
+source ~/techin517/ros2_ws/install/setup.bash
+ros2 run soa_functions save_joint_states
+clear
+source ~/techin517/ros2_ws/install/setup.bash
+ros2 run soa_functions save_joint_states
+mkdir -p /home/ubuntu/techin517/soa_ws
+ros2 service call /follower/save_joint_states soa_interfaces/srv/SaveJointStates   "{csv_path: '/home/ubuntu/techin517/soa_ws/joints.csv'}"
+clear

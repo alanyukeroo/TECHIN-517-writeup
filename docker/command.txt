@@ -66,6 +66,18 @@ lerobot-teleoperate \
   --display_data=true
 
 
+lerobot-teleoperate \
+  --robot.type=so101_follower \
+  --robot.port=/dev/ttyACM1 \
+  --robot.id=gix-follower1 \
+  --robot.calibration_dir=/home/ubuntu/techin517/my_calibration \
+  --teleop.type=so101_leader \
+  --teleop.port=/dev/ttyACM0 \
+  --teleop.id=gix-leader1 \
+  --teleop.calibration_dir=/home/ubuntu/techin517/my_calibration
+
+
+
 lerobot-calibrate \
     --robot.type=so101_follower \
     --robot.port=/dev/ttyACM1 \
@@ -148,3 +160,32 @@ lerobot-record \
   --dataset.push_to_hub=False \
   --display_data=False \
   --play_sounds=False
+
+
+# for Fan to collaborate to use our team1 account
+code /home/alannur@netid.washington.edu/github/TECHIN-517-writeup
+
+
+
+Both calibration files are updated. Now start everything:
+
+Terminal 1 — launch robot + teleop:
+
+
+sudo chmod 666 /dev/ttyACM0 /dev/ttyACM1
+source ~/techin517/ros2_ws/install/setup.bash
+ros2 launch soa_bringup soa_bringup.launch.py leader:=true
+Terminal 2 — start the save service:
+
+
+source ~/techin517/ros2_ws/install/setup.bash
+ros2 run soa_functions save_joint_states
+Terminal 3 — ready to save poses:
+
+
+mkdir -p /home/ubuntu/techin517/soa_ws
+
+# Run once per pose:
+ros2 service call /follower/save_joint_states soa_interfaces/srv/SaveJointStates \
+  "{csv_path: '/home/ubuntu/techin517/soa_ws/joints.csv'}"
+Move the leader arm to each position, then call the service. 5 poses minimum.
