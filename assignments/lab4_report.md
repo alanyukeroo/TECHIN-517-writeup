@@ -567,7 +567,7 @@ def main(args=None):
 
 ## Deliverable 6: Demo Video
 
-[INSERT YOUTUBE LINK HERE]
+youtube.com/shorts/c47fdK6QvhE?si=cxwmLo-cLFs9NoON
 
 ---
 
@@ -576,4 +576,4 @@ def main(args=None):
 <!-- Write this paragraph yourself (no AI) -->
 <!-- Think about: when would you use FK vs IK, what are the tradeoffs -->
 
-[YOUR PARAGRAPH HERE]
+We use forward kinematics when we know our joint angles and want to calculate where our end effector will end up. We know the inputs (joint positions) and compute the output (tip position). Inverse kinematics works the other way: we know where we want the tip to go and solve for the joint angles that get it there. We prefer forward kinematics for simpler tasks like simulation, animation playback, or verifying a known pose, since it has a unique solution. We rely on inverse kinematics when we need real world control, like commanding a robot to reach a specific location, though we must account for the fact that it is harder to solve and can have multiple solutions or none at all. In short, we use forward kinematics when we are analyzing or replaying motion, and inverse kinematics when we are planning where to move.
