@@ -1,4 +1,4 @@
-# Lab 4 Report: Pose Goals & Obstacle Avoidance
+# Lab 4 Report: Pose Goals & Obstacle Avoidance - Alan Nur
 
 ## Deliverable 1: `move_to_pose_server` Code
 
